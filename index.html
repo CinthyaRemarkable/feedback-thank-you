@@ -19,21 +19,21 @@
 <body>
     <div class="thank-you">Thank you for your feedback!</div>
     <script>
-        console.log("Hello World");
         // Extract URL parameters
         const urlParams = new URLSearchParams(window.location.search);
         const rating = urlParams.get('rating');
         const record_id = urlParams.get('record_id');
 
-        // Perform the webhook request
-        fetch(, {
+        // Perform the webhook request to Google Cloud Function
+        fetch('https://australia-southeast1-regal-eon-427411-d2.cloudfunctions.net/webhookHandler', {
             method: 'POST',
-            mode: 'no-cors',
             headers: { 'Content-Type': 'application/json' },
             body: JSON.stringify({ rating: rating, record_id: record_id })
         }).then(response => {
             if (!response.ok) {
                 console.error('Error submitting feedback:', response.statusText);
+            } else {
+                console.log('Success:', response);
             }
         }).catch(error => {
             console.error('Error submitting feedback:', error);
@@ -41,4 +41,3 @@
     </script>
 </body>
 </html>
-

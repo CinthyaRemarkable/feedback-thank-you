@@ -28,13 +28,11 @@
         console.log('Record ID:', record_id);
 
         // Perform the webhook request to Google Cloud Function
-        fetch('https://australia-southeast1-regal-eon-427411-d2.cloudfunctions.net/webhookHandler', {
-            method: 'POST',
-            headers: { 'Content-Type': 'application/json' },
-            body: JSON.stringify({ rating, record_id })
+        fetch(`https://australia-southeast1-regal-eon-427411-d2.cloudfunctions.net/webhookHandler?rating=${rating}&record_id=${record_id}`, {
+            method: 'GET',
         }).then(response => {
             console.log('Success:', response);
-            return response.json();
+            return response.text();
         }).then(data => {
             console.log('Response data:', data);
         }).catch(error => {

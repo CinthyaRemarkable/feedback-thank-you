@@ -1,12 +1,19 @@
 <!DOCTYPE html>
-<html lang="en">
+<html>
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Thank You</title>
     <style>
-        body { font-family: Arial, sans-serif; text-align: center; padding: 50px; }
-        .thank-you { font-size: 24px; color: green; }
+        body { 
+            font-family: Arial, sans-serif; 
+            text-align: center; 
+            padding: 50px; 
+        }
+        .thank-you { 
+            font-size: 24px; 
+            color: green; 
+        }
     </style>
 </head>
 <body>
@@ -15,19 +22,19 @@
         // Extract URL parameters
         const urlParams = new URLSearchParams(window.location.search);
         const rating = urlParams.get('rating');
-        const recordId = urlParams.get('record_id');
+        const record_id = urlParams.get('record_id');
 
         // Perform the webhook request
         fetch('https://hooks.zapier.com/hooks/catch/6958234/2b9gok0/', {
             method: 'POST',
             headers: { 'Content-Type': 'application/json' },
-            body: JSON.stringify({ rating: rating, record_id: recordId })
+            body: JSON.stringify({ rating: rating, record_id: record_id })
         }).then(response => {
-            return response.json();
-        }).then(data => {
-            console.log('Success:', data);
-        }).catch((error) => {
-            console.error('Error:', error);
+            if (!response.ok) {
+                console.error('Error submitting feedback:', response.statusText);
+            }
+        }).catch(error => {
+            console.error('Error submitting feedback:', error);
         });
     </script>
 </body>

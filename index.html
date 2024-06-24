@@ -22,8 +22,11 @@ w<!DOCTYPE html>
         console.log ("Hello World")
         // Extract URL parameters
         const urlParams = new URLSearchParams(window.location.search);
+        console.log (urlParams)
         const rating = urlParams.get('rating');
+        console.log (rating)
         const record_id = urlParams.get('record_id');
+        console.log (record_id)
 
         // Perform the webhook request
         fetch('https://hooks.zapier.com/hooks/catch/6958234/2b9gok0/', {

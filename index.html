@@ -31,6 +31,7 @@ w<!DOCTYPE html>
         // Perform the webhook request
         fetch('https://hooks.zapier.com/hooks/catch/6958234/2b9gok0/', {
             method: 'POST',
+            mode: "no-cors",
             headers: { 'Content-Type': 'application/json' },
             body: JSON.stringify({ rating: rating, record_id: record_id })
         }).then(response => {

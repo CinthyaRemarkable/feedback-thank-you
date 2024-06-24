@@ -3,29 +3,32 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Feedback Received</title>
+    <title>Thank You</title>
     <style>
-        body {
-            display: flex;
-            justify-content: center;
-            align-items: center;
-            height: 100vh;
-            background-color: #f0f0f0;
-            font-family: Arial, sans-serif;
-        }
-        .message {
-            text-align: center;
-            padding: 20px;
-            background-color: #fff;
-            border: 1px solid #ccc;
-            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
-        }
+        body { font-family: Arial, sans-serif; text-align: center; padding: 50px; }
+        .thank-you { font-size: 24px; color: green; }
     </style>
 </head>
 <body>
-    <div class="message">
-        <h1>Thank you for your feedback!</h1>
-        <p>Your response has been recorded.</p>
-    </div>
+    <div class="thank-you">Thank you for your feedback!</div>
+    <script>
+        // Extract URL parameters
+        const urlParams = new URLSearchParams(window.location.search);
+        const rating = urlParams.get('rating');
+        const recordId = urlParams.get('record_id');
+
+        // Perform the webhook request
+        fetch('https://hooks.zapier.com/hooks/catch/6958234/2b9gok0/', {
+            method: 'POST',
+            headers: { 'Content-Type': 'application/json' },
+            body: JSON.stringify({ rating: rating, record_id: recordId })
+        }).then(response => {
+            return response.json();
+        }).then(data => {
+            console.log('Success:', data);
+        }).catch((error) => {
+            console.error('Error:', error);
+        });
+    </script>
 </body>
 </html>
